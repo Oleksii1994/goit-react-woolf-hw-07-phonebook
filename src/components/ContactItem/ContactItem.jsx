@@ -1,13 +1,15 @@
 import { ContactItemLi, DeleteBtn } from './ContactItem.styled';
-import { deleteContact } from 'redux/contactsSlice';
+// import { deleteContactAction } from 'redux/contactsSlice';
+import { deleteContact } from 'redux/operations';
 import { useSelector, useDispatch } from 'react-redux';
+import { selectContactsArr, selectFilter } from 'redux/selectors';
 import Notiflix from 'notiflix';
 
 export const ContactItem = () => {
   const dispatch = useDispatch();
 
-  const contactsState = useSelector(state => state.contacts.contactsArr);
-  const filterState = useSelector(state => state.filter);
+  const contactsState = useSelector(selectContactsArr);
+  const filterState = useSelector(selectFilter);
 
   function getVisibleContacts() {
     const normalizedFilter = filterState.toLowerCase();

@@ -4,15 +4,13 @@ import { Filter } from './Filter/Filter';
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { getContacts } from 'redux/selectors';
+import { selectContacts } from 'redux/selectors';
 import { fetchContacts } from 'redux/operations';
 
 export function App() {
   const dispatch = useDispatch();
-  // const stateContacts = useSelector(state => state.contacts.contactsArr);
 
-  // Отримуємо частини стану
-  const { contactsArr, isLoading, error } = useSelector(getContacts);
+  const { contactsArr, isLoading, error } = useSelector(selectContacts);
 
   useEffect(() => {
     dispatch(fetchContacts());
@@ -24,7 +22,7 @@ export function App() {
       <ContactForm />
 
       <div>
-        {isLoading && <p>Loading contacts...</p>}
+        {isLoading && !error && <b>Loading...</b>}
         {error && <p>Oops, something went wrong</p>}
         {contactsArr.length > 0 && (
           <div>
