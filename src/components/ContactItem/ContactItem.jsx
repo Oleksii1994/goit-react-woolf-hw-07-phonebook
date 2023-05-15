@@ -21,10 +21,10 @@ export const ContactItem = () => {
     Notiflix.Notify.success(`Contact ${name} deleted successfully`);
   };
 
-  return getVisibleContacts().map(({ id, name, number }) => {
+  return getVisibleContacts().map(({ id, name, phone }) => {
     return (
       <ContactItemLi key={id}>
-        {name}: {number}
+        {name}: {phone}
         <DeleteBtn type="button" onClick={() => handleDelete(id, name)}>
           Delete
         </DeleteBtn>

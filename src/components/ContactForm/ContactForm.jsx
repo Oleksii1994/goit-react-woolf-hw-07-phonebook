@@ -8,7 +8,7 @@ export function ContactForm() {
   const dispatch = useDispatch();
   const stateContacts = useSelector(state => state.contacts.contactsArr);
   const [name, setName] = useState('');
-  const [number, setNumber] = useState('');
+  const [phone, setPhone] = useState('');
 
   function handleInputChange(e) {
     const { name, value } = e.target;
@@ -19,7 +19,7 @@ export function ContactForm() {
         break;
 
       case 'number':
-        setNumber(value);
+        setPhone(value);
         break;
 
       default:
@@ -38,7 +38,7 @@ export function ContactForm() {
       ) {
         Notiflix.Notify.failure(`${[name]} is already in contact`);
         return;
-      } else if (contact.number === form.elements.number.value) {
+      } else if (contact.phone === form.elements.number.value) {
         return Notiflix.Notify.failure(
           `${form.elements.number.value} is already in contact`
         );
@@ -48,7 +48,7 @@ export function ContactForm() {
     dispatch(
       addContact({
         name: form.elements.name.value,
-        number: form.elements.number.value,
+        phone: form.elements.number.value,
       })
     );
     Notiflix.Notify.success('Contact added');
@@ -59,7 +59,7 @@ export function ContactForm() {
 
   function reset() {
     setName('');
-    setNumber('');
+    setPhone('');
   }
 
   return (
@@ -87,7 +87,7 @@ export function ContactForm() {
           required
           placeholder="Enter phone number"
           onChange={handleInputChange}
-          value={number}
+          value={phone}
         />
       </Label>
 
