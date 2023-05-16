@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, isAnyOf } from '@reduxjs/toolkit';
 import * as handlersForContactsSlice from './handlers/handlersForContactsSlice';
 import { fetchContacts, postContact, deleteContact } from './operations';
 
@@ -12,12 +12,12 @@ export const contactsSlice = createSlice({
 
   extraReducers: builder => {
     builder
-      .addCase(fetchContacts.pending, handlersForContactsSlice.handlePending)
-      .addCase(postContact.pending, handlersForContactsSlice.handlePending)
-      .addCase(deleteContact.pending, handlersForContactsSlice.handlePending)
-      .addCase(fetchContacts.rejected, handlersForContactsSlice.handleRejected)
-      .addCase(postContact.rejected, handlersForContactsSlice.handleRejected)
-      .addCase(deleteContact.rejected, handlersForContactsSlice.handleRejected)
+      // .addCase(fetchContacts.pending, handlersForContactsSlice.handlePending)
+      // .addCase(postContact.pending, handlersForContactsSlice.handlePending)
+      // .addCase(deleteContact.pending, handlersForContactsSlice.handlePending)
+      // .addCase(fetchContacts.rejected, handlersForContactsSlice.handleRejected)
+      // .addCase(postContact.rejected, handlersForContactsSlice.handleRejected)
+      // .addCase(deleteContact.rejected, handlersForContactsSlice.handleRejected)
       .addCase(
         fetchContacts.fulfilled,
         handlersForContactsSlice.handlerFetchContactsFulfilled
@@ -29,6 +29,22 @@ export const contactsSlice = createSlice({
       .addCase(
         deleteContact.fulfilled,
         handlersForContactsSlice.handlerDeleteContactFulfilled
+      )
+      .addMatcher(
+        isAnyOf(
+          fetchContacts.pending,
+          postContact.pending,
+          deleteContact.pending
+        ),
+        handlersForContactsSlice.handlePending
+      )
+      .addMatcher(
+        isAnyOf(
+          fetchContacts.rejected,
+          postContact.rejected,
+          deleteContact.rejected
+        ),
+        handlersForContactsSlice.handleRejected
       );
   },
 });
