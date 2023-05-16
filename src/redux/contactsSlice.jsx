@@ -1,13 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
+import * as handlersForContactsSlice from './handlers/handlersForContactsSlice';
 import { fetchContacts, postContact, deleteContact } from './operations';
-
-const handlePending = state => {
-  state.isLoading = true;
-};
-const handleRejected = (state, action) => {
-  state.isLoading = false;
-  state.error = action.payload;
-};
 
 export const contactsSlice = createSlice({
   name: 'contacts',
@@ -17,34 +10,26 @@ export const contactsSlice = createSlice({
     error: null,
   },
 
-  extraReducers: {
-    [fetchContacts.pending]: handlePending,
-    [postContact.pending]: handlePending,
-    [deleteContact.pending]: handlePending,
-    [fetchContacts.rejected]: handleRejected,
-    [postContact.rejected]: handleRejected,
-    [deleteContact.rejected]: handleRejected,
-
-    [fetchContacts.fulfilled](state, action) {
-      state.isLoading = false;
-      state.error = null;
-      state.contactsArr = action.payload;
-    },
-
-    [postContact.fulfilled](state, action) {
-      state.isLoading = false;
-      state.error = null;
-      state.contactsArr.push(action.payload);
-    },
-
-    [deleteContact.fulfilled](state, action) {
-      state.isLoading = false;
-      state.error = null;
-      const index = state.contactsArr.findIndex(
-        contact => contact.id === action.payload.id
+  extraReducers: builder => {
+    builder
+      .addCase(fetchContacts.pending, handlersForContactsSlice.handlePending)
+      .addCase(postContact.pending, handlersForContactsSlice.handlePending)
+      .addCase(deleteContact.pending, handlersForContactsSlice.handlePending)
+      .addCase(fetchContacts.rejected, handlersForContactsSlice.handleRejected)
+      .addCase(postContact.rejected, handlersForContactsSlice.handleRejected)
+      .addCase(deleteContact.rejected, handlersForContactsSlice.handleRejected)
+      .addCase(
+        fetchContacts.fulfilled,
+        handlersForContactsSlice.handlerFetchContactsFulfilled
+      )
+      .addCase(
+        postContact.fulfilled,
+        handlersForContactsSlice.handlerPostContactFulfilled
+      )
+      .addCase(
+        deleteContact.fulfilled,
+        handlersForContactsSlice.handlerDeleteContactFulfilled
       );
-      state.contactsArr.splice(index, 1);
-    },
   },
 });
 
