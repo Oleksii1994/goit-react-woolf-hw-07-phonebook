@@ -2,7 +2,6 @@ import { useState } from 'react';
 import Notiflix from 'notiflix';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectContactsArr } from 'redux/selectors';
-// import { addContact } from 'redux/contactsSlice';
 import { postContact } from 'redux/operations';
 import { Form, Label, Input, SubmitButton } from './ContactForm.styled';
 
@@ -54,12 +53,6 @@ export function ContactForm() {
       })
     );
 
-    // dispatch(
-    //   addContact({
-    //     name: form.elements.name.value,
-    //     phone: form.elements.number.value,
-    //   })
-    // );
     Notiflix.Notify.success('Contact added');
     form.reset();
 

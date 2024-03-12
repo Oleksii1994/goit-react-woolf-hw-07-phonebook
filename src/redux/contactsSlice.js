@@ -12,12 +12,6 @@ export const contactsSlice = createSlice({
 
   extraReducers: builder => {
     builder
-      // .addCase(fetchContacts.pending, handlersForContactsSlice.handlePending)
-      // .addCase(postContact.pending, handlersForContactsSlice.handlePending)
-      // .addCase(deleteContact.pending, handlersForContactsSlice.handlePending)
-      // .addCase(fetchContacts.rejected, handlersForContactsSlice.handleRejected)
-      // .addCase(postContact.rejected, handlersForContactsSlice.handleRejected)
-      // .addCase(deleteContact.rejected, handlersForContactsSlice.handleRejected)
       .addCase(
         fetchContacts.fulfilled,
         handlersForContactsSlice.handlerFetchContactsFulfilled

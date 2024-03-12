@@ -30,7 +30,11 @@ export function App() {
             <Filter />
           </div>
         )}
-        {contactsArr.length > 0 && <ContactsList />}
+        {contactsArr.length > 0 ? (
+          <ContactsList />
+        ) : (
+          <p>Add your first contact</p>
+        )}
       </div>
     </div>
   );
