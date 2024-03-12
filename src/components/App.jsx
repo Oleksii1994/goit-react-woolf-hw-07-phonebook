@@ -22,8 +22,6 @@ export function App() {
       <ContactForm />
 
       <div>
-        {isLoading && !error && <b>Loading...</b>}
-        {error && <p>Oops, something went wrong</p>}
         {contactsArr.length > 0 && (
           <div>
             <h2>Contacts</h2>
@@ -34,6 +32,8 @@ export function App() {
         {contactsArr.length === 0 && !isLoading && (
           <p>Add your first contact</p>
         )}
+        {isLoading && !error && <b>Loading...</b>}
+        {error && <p>Oops, something went wrong</p>}
       </div>
     </div>
   );
