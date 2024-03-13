@@ -51,10 +51,15 @@ export function ContactForm() {
         name: form.elements.name.value,
         phone: form.elements.number.value,
       })
-    );
-
-    Notiflix.Notify.success('Contact added');
-    form.reset();
+    )
+      .unwrap()
+      .then(() => {
+        Notiflix.Notify.success('Contact added');
+        form.reset();
+      })
+      .catch(() => {
+        Notiflix.Notify.error('Oops, something went wrong');
+      });
 
     reset();
   }

@@ -7,8 +7,14 @@ export const ContactItem = ({ id, name, phone }) => {
   const dispatch = useDispatch();
 
   const handleDelete = ({ id, name }) => {
-    dispatch(deleteContact(id));
-    Notiflix.Notify.success(`Contact ${name} deleted successfully`);
+    dispatch(deleteContact(id))
+      .unwrap()
+      .then(() => {
+        Notiflix.Notify.success(`Contact ${name} deleted successfully`);
+      })
+      .catch(() => {
+        Notiflix.Notify.error(`Oops, something went wrong`);
+      });
   };
 
   return (

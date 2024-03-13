@@ -3,14 +3,19 @@ import { ContactsList } from './ContactList/ContactList';
 import { Filter } from './Filter/Filter';
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-
-import { selectContacts } from 'redux/selectors';
+import {
+  selectContactsArr,
+  selectIsLoading,
+  selectError,
+} from 'redux/selectors';
 import { fetchContacts } from 'redux/operations';
 
 export function App() {
   const dispatch = useDispatch();
 
-  const { contactsArr, isLoading, error } = useSelector(selectContacts);
+  const contactsArr = useSelector(selectContactsArr);
+  const isLoading = useSelector(selectIsLoading);
+  const error = useSelector(selectError);
 
   useEffect(() => {
     dispatch(fetchContacts());
@@ -23,12 +28,14 @@ export function App() {
 
       <div>
         {contactsArr.length > 0 && (
-          <div>
-            <h2>Contacts</h2>
-            <Filter />
-          </div>
+          <>
+            <div>
+              <h2>Contacts</h2>
+              <Filter />
+            </div>
+            <ContactsList />
+          </>
         )}
-        {contactsArr.length > 0 && <ContactsList />}
         {contactsArr.length === 0 && !isLoading && (
           <p>Add your first contact</p>
         )}
